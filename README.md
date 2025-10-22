@@ -1,34 +1,42 @@
-# Elementals Prototype
+# Elementals – Real-Time Prototype
 
-This repository contains a top-down, physics-driven magic battle prototype inspired by the provided elemental layout. The current milestone makes the game playable in a single-player skirmish so the combat systems can be playtested before multiplayer networking is introduced.
+This repository now contains a playable, physics-driven top-down arena inspired by the elemental campaign layout. You can pilot a guardian through successive zones, unlock combo abilities, and duel an AI opponent with tactile projectiles, knockbacks, shields, and crowd-control effects.
 
-## Features
+## Requirements
 
-- **Element Graph** – `elementals/elements.py` codifies the zone progression, unlock rules, and combined elements between adjacent regions.
-- **Ability Catalog** – `elementals/abilities.py` captures each elemental ability with descriptions, design tags, and metadata for the combat sandbox.
-- **Campaign Progression** – `elementals/zones.py` enforces the two starting zones (Earth and Water) and unlocks adjacent regions and combo abilities after completion.
-- **Combat Sandbox** – `elementals/combat.py` defines ability behaviors, status effects, and a lightweight AI to drive playtest duels.
-- **Entity & Physics Layer** – `elementals/entities.py` and `elementals/physics.py` provide lightweight components for top-down movement, stats, resource management, and collision handling.
-- **Game State Container** – `elementals/game_state.py` glues everything together, allowing quick iteration on campaign unlocks and arena simulations.
-- **Playtest Entry Point** – `main.py` launches an interactive console skirmish (or an automated demo) so designers can exercise the systems.
+- Python 3.10+
+- [`pygame`](https://www.pygame.org/docs/) (`python -m pip install pygame`)
 
-## Running the Playtest
+The prototype renders in a desktop window and requires keyboard and mouse input.
+
+## Running the Game
 
 ```bash
 python main.py
 ```
 
-Follow the on-screen instructions to choose a starting element (Earth or Water), then issue commands such as `move north` or `cast primary` to battle the AI-controlled guardian. You can combine actions in a single line (e.g. `cast primary move east`).
+1. Use the number keys shown on the menu (`1`, `2`, …) to pick the next zone. You always start with **Earth** or **Water**.
+2. During combat:
+   - **W/A/S/D** (or arrow keys) move your avatar.
+   - **Mouse** aims your abilities; the guardian will face your cursor.
+   - **Keys 1–6** trigger the abilities listed on the HUD. Combo unlocks appear after clearing adjacent zones.
+   - Watch your health and energy bars in the bottom-left HUD, and look for status icons or floating numbers to understand incoming effects.
+3. Win the duel to unlock the next pair of adjacent zones, following the layout guidelines. Clearing compatible pairs grants combo abilities such as Roots (Nature), Volcanic Geyser (Magma), and Freeze (Ice).
 
-To watch the systems play out automatically, run:
+If you lose, press **Enter** to return to the zone menu and try again.
 
-```bash
-python main.py --demo --turns 12
-```
+## Project Structure
+
+- `elementals/elements.py` – campaign graph, combo lookup, and progression helpers.
+- `elementals/abilities.py` – ability specifications and their in-game behaviors (projectiles, AoE bursts, buffs, and crowd-control).
+- `elementals/entities.py` – physics primitives, actors, status effects, and projectile representations.
+- `elementals/game.py` – Pygame loop, AI control, rendering, HUD, and arena management.
+- `elementals/physics.py` – vector math and collision helpers.
+- `main.py` – launches the real-time prototype.
 
 ## Next Steps
 
-- Add additional encounter types, props, and environmental hazards to broaden playtesting.
-- Build graphical input handling and rendering using a 2D framework (e.g., Pygame, Godot, or a custom engine).
-- Introduce persistence for save files and expand the AI roster to cover each elemental path.
-- Layer in multiplayer via an authoritative server model once single-player combat is polished.
+- Expand arena variety with new props, hazards, and cover layouts.
+- Add audio cues and particle systems for richer spell feedback.
+- Introduce additional guardian archetypes so each zone feels distinct.
+- Layer networking on top of the current systems to enable co-op or competitive multiplayer once the core combat loop feels solid.

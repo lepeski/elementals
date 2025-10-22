@@ -1,14 +1,20 @@
-"""Core package for the Elementals prototype game."""
-
-from .elements import Element, ELEMENT_ADJACENCY, ELEMENT_ABILITY_MAP
-from .abilities import Ability, AbilityTag
-from .game_state import GameState
+"""Core exports for the Elementals real-time prototype."""
+from .abilities import ABILITY_LIBRARY, AbilitySpec, COMBO_ABILITIES, DEFAULT_LOADOUTS, loadout_for
+from .elements import CampaignState, Element, combo_for
+from .game import GameApp, GameSession, run_game
+from .physics import Vec2
 
 __all__ = [
-    "Ability",
-    "AbilityTag",
+    "ABILITY_LIBRARY",
+    "AbilitySpec",
+    "CampaignState",
+    "COMBO_ABILITIES",
+    "DEFAULT_LOADOUTS",
     "Element",
-    "ELEMENT_ADJACENCY",
-    "ELEMENT_ABILITY_MAP",
-    "GameState",
+    "GameApp",
+    "GameSession",
+    "Vec2",
+    "combo_for",
+    "loadout_for",
+    "run_game",
 ]
